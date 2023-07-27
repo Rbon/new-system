@@ -1,4 +1,4 @@
-(global-set-key (kbd "M-SPC") 'abnormal-mode)
+(global-set-key (kbd "<escape>") 'abnormal-mode)
 (setq-default cursor-type 'bar)
 
 ;; abnormal mode {
@@ -23,19 +23,28 @@
   (dolist (b bindings)
 	  (define-key abnormal-mode-map (kbd (car b)) (nth 1 b))))
 
+;;(defun my-mark-word (N)
+;;  (interactive "p")
+;;  (if (and
+;;       (not (e
+
 ;; keybinds
 (add-to-abnormal-mode-map '(
-			    ("I" test)
-			    ("Y" test)
-			    ("h" left-char)
-			    ("j" next-line)
-			    ("k" previous-line)
-			    ("l" right-char)
-			    ("s" basic-save-buffer)
-			    ("D" kill-whole-line)
-			    ("w" kill-all-word)
-			    ("e" eval-buffer)
-			    ("u" undo)
+			    ("i"  abnormal-mode)
+			    ("Y"  test)
+			    ("h"  left-char)
+			    ("j"  next-line)
+			    ("k"  previous-line)
+			    ("l"  right-char)
+			    ("s"  basic-save-buffer)
+			    ("D"  kill-whole-line)
+			    ("w"  mark-whole-word)
+			    ("e"  eval-buffer)
+			    (":"  execute-extended-command)
+			    ("u"  undo)
+			    ("H"  nil)
+			    ("HH" apropos)
+			    ("HK" describe-key)
 			    ))
 			   
 (add-to-list 'minor-mode-alist '(abnormal-mode " abnormal"))
@@ -52,10 +61,12 @@
   (if abnormal-mode
       (progn
 	(message "abnormal-mode activated!")
-	(setq cursor-type 'box))
+	(setq cursor-type 'box)
+	(global-unset-key (kbd "<escape>")))
     (progn
       (message "abnormal-mode deactivated!")
-      (setq cursor-type 'bar))))
+      (setq cursor-type 'bar)
+      (global-set-key (kbd "<escape>") 'abnormal-mode))))
 
 ;; Other stuff
 
@@ -63,3 +74,26 @@
     (interactive)
   (call-interactively 'left-word)
   (call-interactively 'kill-word))
+
+(defun mark-whole-word ()
+  (interactive)
+  (call-interactively 'right-word)
+  (call-interactively 'left-word)
+  (call-interactively 'mark-word))
+
+(defun bad-mark-whole-word (&optional arg allow-extend)
+  "Stolen from stackexchange."
+  (interactive "P\np")
+  (let ((num  ((prefix-numeric-value arg)))
+	(unless (eq last-command this-command)
+	  (if (natnump num)
+	      (skip-syntax-forward "\\s-")
+	    (skip-syntax-backward "\\s-")))
+	(unless (or (eq last-command this-command)
+		    (if (natnump num)
+			(looking-at "\\b")
+		      (loking-back "\\b")))
+	  (if (natnump num)
+	      (left-word)
+	    (right-word)))
+	(mark-word arg allow-extend))))
