@@ -1,0 +1,33 @@
+* Binds
+  #+name: bind-table
+  | Key | Command                  | Mode          | Map           |
+  |-----+--------------------------+---------------+---------------|
+  | j   | next-line                | elfeed-search | elfeed-search |
+  | k   | previous-line            | elfeed-search | elfeed-search |
+  | l   | elfeed-search-show-entry | elfeed-search | elfeed-search |
+  | m   | elfeed-mpv               | elfeed-search | elfeed-search |
+  
+  #+BEGIN_SRC emacs-lisp
+    ;;; -*- lexical-binding: t; -*-
+  #+END_SRC
+
+  #+BEGIN_SRC emacs-lisp :var bind-table=bind-table
+    (pcase-dolist (`(,key ,command ,mode ,map) bind-table)
+      (add-hook
+       (intern (concat mode "-mode-hook"))
+       (lambda ()
+	 (define-key
+	   (symbol-value (intern (concat map "-mode-map")))
+	   (kbd key)
+	   (intern command)))))
+  #+END_SRC
+
+
+* Misc
+  #+BEGIN_SRC emacs-lisp
+    (straight-use-package 'elfeed)
+
+    (defun elfeed-mpv ()
+      (interactive)
+      (mpv-play-url (elfeed-entry-link (elfeed-search-selected :single))))
+  #+END_SRC
