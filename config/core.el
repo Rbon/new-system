@@ -3,7 +3,7 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 ;; (global-unset-key (kbd "<escape> <escape> <escape>"))
-
+(require 'org-tempo)
 
 ;; abnormal mode {
 ;; (make-variable-buffer-local

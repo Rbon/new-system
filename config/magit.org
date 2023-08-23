@@ -1,0 +1,35 @@
+#+title: magit configuration
+* Binds
+  #+name: bind-table
+  | Key      | Command                | Mode        | Map          |
+  |----------+------------------------+-------------+--------------|
+  | H        | magit-discard          | magit       | magit-status |
+  | j        | magit-next-line        | magit       | magit-status |
+  | J        | magit-status-jump      | magit       | magit-status |
+  | k        | magit-previous-line    | magit       | magit-status |
+  | <escape> | magit-mode-bury-buffer | magit       | magit-status |
+  | qc       | with-editor-cancel     | with-editor | abnormal     |
+  | qf       | with-editor-finish     | with-editor | abnormal     |
+  
+  =with-editor-mode= is used for commit messages, by the way.
+
+  #+BEGIN_SRC emacs-lisp
+    ;;; -*- lexical-binding: t; -*-
+  #+END_SRC
+  
+  #+BEGIN_SRC emacs-lisp :var bind-table=bind-table
+    (pcase-dolist (`(,key ,command ,mode ,map) bind-table)
+      (add-hook
+       (intern (concat mode "-mode-hook"))
+       (lambda ()
+	 (define-key
+	   (symbol-value (intern (concat map "-mode-map")))
+	   (kbd key)
+	   (intern command)))))
+  #+END_SRC
+
+* Misc
+  #+begin_src emacs-lisp
+(straight-use-package 'magit)
+(add-hook 'with-editor-mode-hook 'abnormal-mode)
+  #+end_src

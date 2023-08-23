@@ -8,17 +8,25 @@ Like `require', the return value will be FEATURE if the load was
 successful (or unnecessary) and nil if not."
   (condition-case err
       (load filename) 
-    (error (message "Error loading %s: \"%s\""
-                    (if filename (format "%s (%s)" "TEST" filename) "TEST")
+    (error (message "Error loading %s: \"%s\"" filename
+                    (error-message-string err))
+           nil)))
+
+(defun my/babel-load-softly (filename)
+  (condition-case err
+      (org-babel-load-file filename) 
+    (error (message "Error loading %s: \"%s\"" filename
                     (error-message-string err))
            nil)))
 
 
+
 (my/load-softly "~/.emacs.d/config/core.el")
-(my/load-softly "~/.emacs.d/config/package-manager.el")
-(my/load-softly "~/.emacs.d/config/magit.el")
+(my/babel-load-softly "~/.emacs.d/config/package-manager.org")
+;; (my/load-softly "~/.emacs.d/config/magit.el")
+(my/babel-load-softly "~/.emacs.d/config/magit.org")
+(my/babel-load-softly "~/.emacs.d/config/elfeed.org")
 (my/load-softly "~/.emacs.d/config/good-scroll.el")
-(org-babel-load-file "~/.emacs.d/config/elfeed.org")
 
 (setq-default org-confirm-babel-evaluate nil)
 (straight-use-package 'solarized-theme)
@@ -141,20 +149,6 @@ successful (or unnecessary) and nil if not."
     ("#"  comment-or-uncomment-region)
     ))
 
-
-
-(add-hook
- 'magit-mode-hook
- (lambda ()
-   (define-multiple-keys
-     magit-mode-map
-     '(
-       ("H"        magit-discard)
-       ("j"        magit-next-line)
-       ("J"        magit-status-jump)
-       ("k"        magit-previous-line)
-       ("<escape>" magit-mode-bury-buffer)
-       ))))
 
 (add-hook
  'org-mode-hook
