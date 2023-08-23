@@ -1,0 +1,22 @@
+#+title: Module Configuration
+#+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/modules.el
+** Module List
+   The following modules will be loaded in order starting from the top.
+   
+   #+name: module-list
+   - package-manager
+   - appearance
+   - org
+   - magit
+   - elfeed
+   - good-scroll
+
+   #+BEGIN_SRC emacs-lisp
+    ;;; -*- lexical-binding: t; -*-
+   #+END_SRC
+  
+   #+BEGIN_SRC emacs-lisp :var module-list=module-list
+     (pcase-dolist (`(,module-name) module-list)
+       (org-babel-tangle-file (format "~/.emacs.d/config/%s.org" module-name))
+       (my/load-softly (concat "~/.emacs.d/tangled/" module-name ".el")))
+   #+END_SRC
