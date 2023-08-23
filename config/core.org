@@ -1,3 +1,6 @@
+#+title: Core Configuration
+#+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/core.el
+#+begin_src emacs-lisp
 (setq-default cursor-type 'bar)
 (setq debug-on-error t)
 (menu-bar-mode -1)
@@ -165,3 +168,4 @@
     (":"  execute-extended-command)
     ("#"  comment-or-uncomment-region)
     ))
+#+end_src
