@@ -1,0 +1,7 @@
+#+title:good-scroll configuration
+#+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/good-scroll.el
+** Misc
+#+begin_src emacs-lisp
+(straight-use-package 'good-scroll)
+(good-scroll-mode 1)
+#+end_src

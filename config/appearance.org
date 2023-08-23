@@ -1,0 +1,6 @@
+#+title: appearance configuration
+#+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/appearance.el
+#+begin_src emacs-lisp
+  (straight-use-package 'solarized-theme)
+  (load-theme 'solarized-light t)
+#+end_src

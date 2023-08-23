@@ -1,4 +1,5 @@
 #+title: magit configuration
+#+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/magit.el
 * Binds
   #+name: bind-table
   | Key      | Command                | Mode        | Map          |
