@@ -1,0 +1,38 @@
+#+title: Global Binds
+#+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/global-binds.el
+#+name: bind-table
+| Key         | Command                  | Description                 |
+|-------------+--------------------------+-----------------------------|
+| C-SPC       | nil                      | Home prefix                 |
+| C-SPC a     | nil                      | Applications                |
+| C-SPC a m   | magit                    | Open magit                  |
+| C-SPC b     | nil                      | Buffer                      |
+| C-SPC b b   | mode-line-other-buffer   | Switch to last buffer       |
+| C-SPC b k   | kill-this-buffer         | Kill this buffer            |
+| C-SPC C-SPC | execute-extended-command | Run a command               |
+| C-SPC f     | nil                      | File                        |
+| C-SPC F     | toggle-frame-fullscreen  | Toggle fullscreen           |
+| C-SPC f c   | my/find-config-file      | Find a config file          |
+| C-SPC f f   | find-file                | Find a file                 |
+| C-SPC f r   | rename-file              | Rename a file               |
+| C-SPC h     | nil                      | Help                        |
+| C-SPC h c   | describe-command         | Describe a command          |
+| C-SPC h f   | describe-function        | Describe a function         |
+| C-SPC h h   | apropos                  | Search apropos              |
+| C-SPC h k   | describe-key             | Describe a key              |
+| C-SPC q     | nil                      | Quit                        |
+| C-SPC q k   | save-buffers-kill-emacs  | Save buffers and kill emacs |
+
+*** Plumbing
+  #+BEGIN_SRC emacs-lisp
+    ;;; -*- lexical-binding: t; -*-
+  #+END_SRC
+  
+  I have tried many different ways to get the "preferred" method of adding which-key strings. Right now I'm settling on the more verbose, but reliable method.
+  #+begin_src emacs-lisp :var bind-table=bind-table :lexical yes :results none
+  (straight-use-package 'which-key)
+  (which-key-mode)
+    (pcase-dolist (`(,key ,command ,description) bind-table)
+      (global-set-key (kbd key) (car (read-from-string command)))
+      (which-key-add-key-based-replacements key description))
+  #+end_src

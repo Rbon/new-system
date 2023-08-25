@@ -6,12 +6,15 @@
    #+name: module-list
    - core
    - package-manager
+   - global-binds
    - appearance
+   - evil
    - org
    - magit
    - elfeed
    - good-scroll
 
+*** Plumbing
    #+BEGIN_SRC emacs-lisp :var module-list=module-list
      (defun my/load-softly (filename)
        "As `require', but instead of an error just print a message.

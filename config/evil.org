@@ -1,0 +1,29 @@
+#+title: Evil Configuration
+#+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/evil.el
+** Modes with Emacs State
+Only the following modes are allowed to be evil.
+#+name: allowed-mode-list
+ - org
+ - with-editor
+   
+*** Plumbing
+
+    #+begin_src emacs-lisp
+    ;;; -*- lexical-binding: t; -*-
+    #+end_src
+
+    #+begin_src emacs-lisp :var allowed-mode-list=allowed-mode-list
+   (pcase-dolist (`(,mode) allowed-mode-list)
+     (add-hook
+      (intern (concat mode "-mode-hook"))
+      (lambda ()
+        (evil-local-mode))))
+    #+end_src
+
+** Misc   
+#+begin_src emacs-lisp
+  (straight-use-package 'evil)
+  (require 'evil)
+#+end_src
+
+

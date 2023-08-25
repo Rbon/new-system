@@ -8,7 +8,7 @@
   | k   | previous-line            | elfeed-search | elfeed-search |
   | l   | elfeed-search-show-entry | elfeed-search | elfeed-search |
   | m   | elfeed-mpv               | elfeed-search | elfeed-search |
-
+*** Plumbing
   #+BEGIN_SRC emacs-lisp
     ;;; -*- lexical-binding: t; -*-
   #+END_SRC

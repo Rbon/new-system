@@ -2,14 +2,14 @@
 #+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/org.el
 ** Misc
    #+begin_src emacs-lisp
-     (add-hook
-      'org-mode-hook
-      (lambda ()
-	(define-multiple-keys
-	  abnormal-mode-map
-	  '(
-	    ("<return>" org-edit-special)
-	    ))))
+    ;; (add-hook
+   ;;   'org-mode-hook
+   ;;   (lambda ()
+;;	(define-multiple-keys
+	  ;;abnormal-mode-map
+;;	  '(
+;;	    ("<return>" org-edit-special)
+	    ;;))))
        ;; (add-hook 'org-mode-hook 'org-indent-mode)
        ;; (add-hook 'org-mode-hook 'variable-pitch-mode)
 
