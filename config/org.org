@@ -1,6 +1,17 @@
-#+title: org mode configuration
+#+title: Org Mode Configuration
 #+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/org.el
-** Misc
+** Keybinds
+#+name: keybind-table
+| Key       | Command          | Mode | Map | Description     |
+|-----------+------------------+------+-----+-----------------|
+| C-SPC o   | (keymap)         | org  | org | Org             |
+| C-SPC o e | org-edit-special | org  | org | Edit this thing |
+
+    #+begin_src emacs-lisp :var keybind-table=keybind-table
+      (my/bind-from-table keybind-table)
+    #+end_src
+
+* Misc
    #+begin_src emacs-lisp
     ;; (add-hook
    ;;   'org-mode-hook

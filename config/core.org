@@ -1,6 +1,7 @@
 #+title: Core Configuration
 #+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/core.el
 #+begin_src emacs-lisp
+  ;;; -*- lexical-binding: t; -*-
   (setq inhibit-startup-screen t)
   (setq-default cursor-type 'bar)
   (setq debug-on-error t)
@@ -24,7 +25,7 @@
   (defvar abnormal-mode-hook nil
     "The hook for abnormal-mode.")
 
-  ; (setq-default abnormal-mode t)
+					  ; (setq-default abnormal-mode t)
   (add-to-list 'minor-mode-alist '(abnormal-mode " abnormal"))
   (add-to-list 'minor-mode-map-alist (cons 'abnormal-mode abnormal-mode-map))
 
@@ -122,33 +123,21 @@
     (cd "~/.emacs.d/config/")
     (call-interactively 'find-file))
 
-  ;; (define-multiple-keys
-  ;;   abnormal-mode-map
-  ;;   '(
-  ;;     ("A"  insert-at-end-of-line)
-  ;;     ("bi" indent-buffer)
-  ;;     ("c"  kill-ring-save)
-  ;;     ("d"  delete-region)
-  ;;     ("D"  kill-whole-line)
-  ;;     ("e"  eval-buffer)
-  ;;     ("fo" find-file-at-point)
-  ;;     ("g"  nil)
-  ;;     ("gg" nil)
-  ;;     ("G"  end-of-buffer)
-  ;;     ("h"  left-char)
-  ;;     ("i"  abnormal-mode)
-  ;;     ("I"  insert-at-start-of-text)
-  ;;     ("J"  nil)
-  ;;     ("JM" jump-to-mark)
-  ;;     ("o"  insert-at-new-line)
-  ;;     ("p"  yank)
-  ;;     ("s"  basic-save-buffer)
-  ;;     ("u"  undo)
-  ;;     ("V"  mark-line)
-  ;;     ("w"  mark-whole-word)
-  ;;     ("Y"  test)
-  ;;     ("x"  delete-forward-char)
-  ;;     (":"  execute-extended-command)
-  ;;     ("#"  comment-or-uncomment-region)
-  ;;     ))
+  ;; (defun my/bind-from-strings (mode map key desc command)
+  ;; (let ((hook (intern (concat mode "-mode-hook")))
+  ;; (mode (intern (concat mode "-mode")))
+  ;; (map (symbol-value (intern (concat map "-mode-map"))))
+  ;; (command (car (read-from-string command))))
+  ;; (add-hook hook (lambda () (define-key map (kbd key) command)))
+  ;; (which-key-add-major-mode-key-based-replacements mode key desc)))
+
+
+  (defun my/bind-from-table (bind-table) 
+    (pcase-dolist (`(,key ,command ,mode ,map ,desc) bind-table)
+      (let ((hook (intern (concat mode "-mode-hook")))
+	    (mode (intern (concat mode "-mode")))
+	    (map (symbol-value (intern (concat map "-mode-map"))))
+	    (command (car (read-from-string command))))
+	(add-hook hook (lambda () (define-key map (kbd key) command)))
+	(which-key-add-major-mode-key-based-replacements mode key desc))))
 #+end_src

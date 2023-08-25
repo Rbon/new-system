@@ -1,27 +1,29 @@
 #+title: Global Binds
 #+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/global-binds.el
 #+name: bind-table
-| Key         | Command                  | Description                 |
-|-------------+--------------------------+-----------------------------|
-| C-SPC       | nil                      | Home prefix                 |
-| C-SPC a     | nil                      | Applications                |
-| C-SPC a m   | magit                    | Open magit                  |
-| C-SPC b     | nil                      | Buffer                      |
-| C-SPC b b   | mode-line-other-buffer   | Switch to last buffer       |
-| C-SPC b k   | kill-this-buffer         | Kill this buffer            |
-| C-SPC C-SPC | execute-extended-command | Run a command               |
-| C-SPC f     | nil                      | File                        |
-| C-SPC F     | toggle-frame-fullscreen  | Toggle fullscreen           |
-| C-SPC f c   | my/find-config-file      | Find a config file          |
-| C-SPC f f   | find-file                | Find a file                 |
-| C-SPC f r   | rename-file              | Rename a file               |
-| C-SPC h     | nil                      | Help                        |
-| C-SPC h c   | describe-command         | Describe a command          |
-| C-SPC h f   | describe-function        | Describe a function         |
-| C-SPC h h   | apropos                  | Search apropos              |
-| C-SPC h k   | describe-key             | Describe a key              |
-| C-SPC q     | nil                      | Quit                        |
-| C-SPC q k   | save-buffers-kill-emacs  | Save buffers and kill emacs |
+| Key         | Command                   | Description                    |
+|-------------+---------------------------+--------------------------------|
+| C-SPC       | (keymap)                  | Home prefix                    |
+| C-SPC a     | (keymap)                  | Applications                   |
+| C-SPC a m   | magit                     | Open magit                     |
+| C-SPC b     | (keymap)                  | Buffer                         |
+| C-SPC b b   | mode-line-other-buffer    | Switch to last buffer          |
+| C-SPC b k   | kill-this-buffer          | Kill this buffer               |
+| C-SPC C-SPC | execute-extended-command  | Run a command                  |
+| C-SPC f     | nil                       | File                           |
+| C-SPC F     | toggle-frame-fullscreen   | Toggle fullscreen              |
+| C-SPC f c   | my/find-config-file       | Find a config file             |
+| C-SPC f f   | find-file                 | Find a file                    |
+| C-SPC f r   | rename-file               | Rename a file                  |
+| C-SPC h     | nil                       | Help                           |
+| C-SPC h c   | describe-command          | Describe a command             |
+| C-SPC h f   | describe-function         | Describe a function            |
+| C-SPC h h   | apropos                   | Search apropos                 |
+| C-SPC h k   | describe-key              | Describe a key                 |
+| C-SPC q     | nil                       | Quit                           |
+| C-SPC q k   | save-buffers-kill-emacs   | Save buffers and kill emacs    |
+| C-SPC w h   | split-window-horizontally | Split this window horizontally |
+| C-SPC w v   | split-window-vertically   | Split this window vertically   |
 
 *** Plumbing
   #+BEGIN_SRC emacs-lisp

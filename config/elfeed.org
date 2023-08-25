@@ -1,6 +1,6 @@
 #+title: elfeed configuration
 #+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/elfeed.el
-* Binds
+** Binds
   #+name: bind-table
   | Key | Command                  | Mode          | Map           |
   |-----+--------------------------+---------------+---------------|
@@ -25,7 +25,7 @@
   #+END_SRC
 
 
-* Misc
+** Misc
   #+BEGIN_SRC emacs-lisp
     (straight-use-package 'elfeed)
 

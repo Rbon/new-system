@@ -32,5 +32,6 @@
 * Misc
   #+begin_src emacs-lisp
 (straight-use-package 'magit)
-(add-hook 'with-editor-mode-hook 'abnormal-mode)
+(add-hook 'magit-status-mode-hook
+  (lambda () (setq cursor-type nil)))
   #+end_src

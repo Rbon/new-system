@@ -3,8 +3,8 @@
 ** Modes with Emacs State
 Only the following modes are allowed to be evil.
 #+name: allowed-mode-list
- - org
- - with-editor
+ - text
+ - prog
    
 *** Plumbing
 
