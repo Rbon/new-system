@@ -1,37 +1,38 @@
 #+title: magit configuration
 #+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/magit.el
-* Binds
-  #+name: bind-table
-  | Key      | Command                | Mode        | Map          |
-  |----------+------------------------+-------------+--------------|
-  | H        | magit-discard          | magit       | magit-status |
-  | j        | magit-next-line        | magit       | magit-status |
-  | J        | magit-status-jump      | magit       | magit-status |
-  | k        | magit-previous-line    | magit       | magit-status |
-  | <escape> | magit-mode-bury-buffer | magit       | magit-status |
-  | qc       | with-editor-cancel     | with-editor | abnormal     |
-  | qf       | with-editor-finish     | with-editor | abnormal     |
+** Keybinds
+Curiously, if I specifically add =C-SPC q= as a keymap here. Instead of overwriting the previous =C-SPC q= bind, it just /deletes it/ instead. Future me: be sure to fix this.
+#+name: keybind-table
+| Key       | Command             | Mode        | Map          | Description         |
+|-----------+---------------------+-------------+--------------+---------------------|
+| H         | magit-discard       | magit       | magit-status | magit-discard       |
+| j         | magit-next-line     | magit       | magit-status | magit-next-line     |
+| J         | magit-status-jump   | magit       | magit-status | magit-status-jump   |
+| k         | magit-previous-line | magit       | magit-status | magit-previous-line |
+| C-SPC q c | with-editor-cancel  | with-editor | with-editor  | Cancel editing      |
+| C-SPC q f | with-editor-finish  | with-editor | with-editor  | finish editing      |
   
-  =with-editor-mode= is used for commit messages, by the way.
+=with-editor-mode= is used for commit messages, by the way.
 
-  #+BEGIN_SRC emacs-lisp
-    ;;; -*- lexical-binding: t; -*-
-  #+END_SRC
-  
-  #+BEGIN_SRC emacs-lisp :var bind-table=bind-table
-    (pcase-dolist (`(,key ,command ,mode ,map) bind-table)
-      (add-hook
-       (intern (concat mode "-mode-hook"))
-       (lambda ()
-	 (define-key
-	   (symbol-value (intern (concat map "-mode-map")))
-	   (kbd key)
-	   (intern command)))))
-  #+END_SRC
+*** Plumbing
+#+BEGIN_SRC emacs-lisp
+  ;;; -*- lexical-binding: t; -*-
+#+END_SRC
 
-* Misc
-  #+begin_src emacs-lisp
-(straight-use-package 'magit)
-(add-hook 'magit-status-mode-hook
-  (lambda () (setq cursor-type nil)))
-  #+end_src
+#+begin_src emacs-lisp :var keybind-table=keybind-table :lexical yes :results none
+  (with-eval-after-load 'magit
+    (pcase-dolist (`(,key ,command ,mode ,map ,desc) keybind-table)
+      (let ((hook (intern (concat mode "-mode-hook")))
+            (mode (intern (concat mode "-mode")))
+            (map (symbol-value (intern (concat map "-mode-map"))))
+            (command (car (read-from-string command))))
+        (add-hook hook (lambda () (define-key map (kbd key) command)))
+        (which-key-add-major-mode-key-based-replacements mode key desc))))
+#+end_src
+
+** Misc
+#+begin_src emacs-lisp
+    (straight-use-package 'magit)
+    (add-hook 'magit-status-mode-hook
+              (lambda () (setq cursor-type nil)))
+#+end_src

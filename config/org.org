@@ -2,44 +2,60 @@
 #+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/org.el
 ** Keybinds
 #+name: keybind-table
-| Key       | Command          | Mode | Map | Description     |
-|-----------+------------------+------+-----+-----------------|
-| C-SPC o   | (keymap)         | org  | org | Org             |
-| C-SPC o e | org-edit-special | org  | org | Edit this thing |
+| Key       | Command          | Mode | Map | Description             |
+|-----------+------------------+------+-----+-------------------------|
+| C-SPC     | (keymap)         | org  | org | Home prefix             |
+| C-SPC o   | (keymap)         | org  | org | Org                     |
+| C-SPC o e | org-edit-special | org  | org | Edit this thing         |
+| C-SPC b   | (keymap)         | org  | org | Buffer                  |
+| C-SPC b i | indent-buffer    | org  | org | Indent this buffer      |
+| C-SPC f   | (keymap)         | org  | org | File                    |
+| C-SPC f s | save-buffer      | org  | org | Save this buffer's file |
 
-    #+begin_src emacs-lisp :var keybind-table=keybind-table
-      (my/bind-from-table keybind-table)
-    #+end_src
+*** Plumbing
+#+BEGIN_SRC emacs-lisp
+  ;;; -*- lexical-binding: t; -*-
+#+END_SRC
+
+#+begin_src emacs-lisp :var keybind-table=keybind-table :lexical yes :results none
+  (pcase-dolist (`(,key ,command ,mode ,map ,desc) keybind-table)
+    (let ((hook (intern (concat mode "-mode-hook")))
+          (mode (intern (concat mode "-mode")))
+          (map (symbol-value (intern (concat map "-mode-map"))))
+          (command (car (read-from-string command))))
+      (add-hook hook (lambda () (define-key map (kbd key) command)))
+      (which-key-add-major-mode-key-based-replacements mode key desc)))
+#+end_src
 
 * Misc
-   #+begin_src emacs-lisp
-    ;; (add-hook
-   ;;   'org-mode-hook
-   ;;   (lambda ()
-;;	(define-multiple-keys
-	  ;;abnormal-mode-map
-;;	  '(
-;;	    ("<return>" org-edit-special)
-	    ;;))))
-       ;; (add-hook 'org-mode-hook 'org-indent-mode)
-       ;; (add-hook 'org-mode-hook 'variable-pitch-mode)
+#+begin_src emacs-lisp
+  ;; (add-hook
+  ;;   'org-mode-hook
+  ;;   (lambda ()
+  ;;	(define-multiple-keys
+  ;;abnormal-mode-map
+  ;;	  '(
+  ;;	    ("<return>" org-edit-special)
+  ;;))))
+  (add-hook 'org-mode-hook 'org-indent-mode)
+  ;; (add-hook 'org-mode-hook 'variable-pitch-mode)
 
-       ;; (with-eval-after-load 'org
-       ;;   (custom-theme-set-faces
-       ;;    'user
-       ;;    '(org-block ((t (:inherit fixed-pitch :background "#eee8d5"))))
-       ;;    '(org-block-begin-line ((t (:inherit fixed-pitch :foreground "#93a1a1" :background "#eee8d5"))))
-       ;;    '(org-block-end-line ((t (:inherit fixed-pitch :foreground "#93a1a1" :background "#eee8d5"))))
-       ;;    '(org-block-background ((t (:inherit fixed-pitch))))
-       ;;    '(org-code ((t (:inherit (shadow fixed-pitch)))))
-       ;;    '(org-document-info ((t (:foreground "dark orange"))))
-       ;;    '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
-       ;;    '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
-       ;;    '(org-link ((t (:foreground "royal blue" :underline t))))
-       ;;    '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-       ;;    '(org-property-value ((t (:inherit fixed-pitch))) t)
-       ;;    '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-       ;;    '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
-       ;;    '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
-       ;;    '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))))
-   #+end_src
+  ;; (with-eval-after-load 'org
+  ;;   (custom-theme-set-faces
+  ;;    'user
+  ;;    '(org-block ((t (:inherit fixed-pitch :background "#eee8d5"))))
+  ;;    '(org-block-begin-line ((t (:inherit fixed-pitch :foreground "#93a1a1" :background "#eee8d5"))))
+  ;;    '(org-block-end-line ((t (:inherit fixed-pitch :foreground "#93a1a1" :background "#eee8d5"))))
+  ;;    '(org-block-background ((t (:inherit fixed-pitch))))
+  ;;    '(org-code ((t (:inherit (shadow fixed-pitch)))))
+  ;;    '(org-document-info ((t (:foreground "dark orange"))))
+  ;;    '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+  ;;    '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+  ;;    '(org-link ((t (:foreground "royal blue" :underline t))))
+  ;;    '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+  ;;    '(org-property-value ((t (:inherit fixed-pitch))) t)
+  ;;    '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+  ;;    '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+  ;;    '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+  ;;    '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))))
+#+end_src
