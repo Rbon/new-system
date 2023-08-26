@@ -15,6 +15,11 @@
   ;; (make-variable-buffer-local
   ;; (defvar abnormal-mode nil
   ;;   "Toggle dotcrafter basic mode."))
+
+
+  (add-hook 'apropos-mode-hook
+            (lambda () (setq cursor-type nil)))
+
   (define-minor-mode abnormal-mode
     "It's not normal."
     :init-value nil)
@@ -25,7 +30,7 @@
   (defvar abnormal-mode-hook nil
     "The hook for abnormal-mode.")
 
-					  ; (setq-default abnormal-mode t)
+                                          ; (setq-default abnormal-mode t)
   (add-to-list 'minor-mode-alist '(abnormal-mode " abnormal"))
   (add-to-list 'minor-mode-map-alist (cons 'abnormal-mode abnormal-mode-map))
 
@@ -36,14 +41,14 @@
 
     ;; Take some action when enabled or disabled
     (if abnormal-mode
-	(progn
-	  (message "abnormal-mode activated!")
-	  (setq cursor-type 'box)
-	  (global-unset-key (kbd "<escape>")))
+        (progn
+          (message "abnormal-mode activated!")
+          (setq cursor-type 'box)
+          (global-unset-key (kbd "<escape>")))
       (progn
-	(message "abnormal-mode deactivated!")
-	(setq cursor-type 'bar)
-	(global-set-key (kbd "<escape>") 'abnormal-mode))))
+        (message "abnormal-mode deactivated!")
+        (setq cursor-type 'bar)
+        (global-set-key (kbd "<escape>") 'abnormal-mode))))
 
   (defun abnormal-init ()
     (abnormal-mode))
@@ -135,9 +140,9 @@
   (defun my/bind-from-table (bind-table) 
     (pcase-dolist (`(,key ,command ,mode ,map ,desc) bind-table)
       (let ((hook (intern (concat mode "-mode-hook")))
-	    (mode (intern (concat mode "-mode")))
-	    (map (symbol-value (intern (concat map "-mode-map"))))
-	    (command (car (read-from-string command))))
-	(add-hook hook (lambda () (define-key map (kbd key) command)))
-	(which-key-add-major-mode-key-based-replacements mode key desc))))
+            (mode (intern (concat mode "-mode")))
+            (map (symbol-value (intern (concat map "-mode-map"))))
+            (command (car (read-from-string command))))
+        (add-hook hook (lambda () (define-key map (kbd key) command)))
+        (which-key-add-major-mode-key-based-replacements mode key desc))))
 #+end_src

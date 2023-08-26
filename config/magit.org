@@ -3,14 +3,14 @@
 ** Keybinds
 Curiously, if I specifically add =C-SPC q= as a keymap here. Instead of overwriting the previous =C-SPC q= bind, it just /deletes it/ instead. Future me: be sure to fix this.
 #+name: keybind-table
-| Key       | Command             | Mode        | Map          | Description         |
-|-----------+---------------------+-------------+--------------+---------------------|
-| H         | magit-discard       | magit       | magit-status | magit-discard       |
-| j         | magit-next-line     | magit       | magit-status | magit-next-line     |
-| J         | magit-status-jump   | magit       | magit-status | magit-status-jump   |
-| k         | magit-previous-line | magit       | magit-status | magit-previous-line |
-| C-SPC q c | with-editor-cancel  | with-editor | with-editor  | Cancel editing      |
-| C-SPC q f | with-editor-finish  | with-editor | with-editor  | finish editing      |
+| Key        | Command             | Mode        | Map          | Description         |
+|------------+---------------------+-------------+--------------+---------------------|
+| H          | magit-discard       | magit       | magit-status | magit-discard       |
+| j          | magit-next-line     | magit       | magit-status | magit-next-line     |
+| J          | magit-status-jump   | magit       | magit-status | magit-status-jump   |
+| k          | magit-previous-line | magit       | magit-status | magit-previous-line |
+| <menu> q c | with-editor-cancel  | with-editor | with-editor  | Cancel editing      |
+| <menu> q f | with-editor-finish  | with-editor | with-editor  | finish editing      |
   
 =with-editor-mode= is used for commit messages, by the way.
 
@@ -36,3 +36,4 @@ Curiously, if I specifically add =C-SPC q= as a keymap here. Instead of overwrit
     (add-hook 'magit-status-mode-hook
               (lambda () (setq cursor-type nil)))
 #+end_src
+

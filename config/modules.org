@@ -9,6 +9,7 @@
    - global-binds
    - appearance
    - evil
+   - prog
    - org
    - magit
    - elfeed
