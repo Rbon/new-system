@@ -23,6 +23,11 @@
   ;; get rid of tiny extra space around windows
   (fringe-mode -1)
 
+  (setq display-buffer-alist
+        '((".*" (display-buffer-reuse-window
+                 display-buffer-same-window)
+           (reusable-frames . t))))
+
   (add-hook 'apropos-mode-hook
             (lambda () (setq cursor-type nil)))
 

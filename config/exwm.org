@@ -12,5 +12,34 @@ Make sure that =<menu>= is captured and not sent to exwm windows. It took me a l
 #+end_src
 
 #+begin_src emacs-lisp
+  (setq exwm-input-simulation-keys
+        '(([?\s-c] . [C-c])
+          ([?\s-v] . [C-v])
+          ([?\s-x] . [C-x])
+          ([?\s-z] . [C-z])
+        ))
+#+end_src
+
+Right now, this is basically taken verbatim from [[https://github.com/daviwil/emacs-from-scratch/blob/master/show-notes/Emacs-Desktop-01.org#setting-up-exwm][the "emacs from scratch" dotfiles]].
+#+begin_src emacs-lisp
+  (setq exwm-input-global-keys
+        `(
+          ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
+          ([?\s-r] . exwm-reset)
+
+          ;; Move between windows
+          ([s-left] . windmove-left)
+          ([s-right] . windmove-right)
+          ([s-up] . windmove-up)
+          ([s-down] . windmove-down)
+
+          ;; Launch applications via shell command
+          ([?\s-&] . (lambda (command)
+                       (interactive (list (read-shell-command "$ ")))
+                       (start-process-shell-command command nil command)))))
+#+end_src
+
+This needs to be called /after/ all the configuration.
+#+begin_src emacs-lisp
   (exwm-enable)
 #+end_src

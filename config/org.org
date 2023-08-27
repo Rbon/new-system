@@ -64,3 +64,7 @@
   ;; '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))))
 #+end_src
 
+Make src block editors obey the =display-buffer-alist= rules.
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook (lambda () (setq org-src-window-setup 'plain)))
+#+end_src

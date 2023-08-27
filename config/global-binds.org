@@ -31,6 +31,9 @@
 | <menu> w k    | delete-window             | Close this window              |
 | <menu> w TAB  | other-window              | Focus another window           |
 | <menu> w v    | split-window-vertically   | Split this window vertically   |
+| <menu> r c    | clipboard-kill-ring-save  | Copy this region               |
+| <menu> w m    | delete-other-windows      | Maximize this window           |
+
 
 *** Plumbing
 #+BEGIN_SRC emacs-lisp
