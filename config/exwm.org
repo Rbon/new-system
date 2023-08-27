@@ -1,0 +1,16 @@
+#+title: EXWM Configuration
+#+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/exwm.el
+** Misc
+#+begin_src emacs-lisp
+  (straight-use-package 'exwm)
+  (require 'exwm)
+#+end_src
+
+Make sure that =<menu>= is captured and not sent to exwm windows. It took me a long time to figure out the syntax for this.
+#+begin_src emacs-lisp
+  (setq exwm-input-prefix-keys '(menu))
+#+end_src
+
+#+begin_src emacs-lisp
+  (exwm-enable)
+#+end_src

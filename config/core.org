@@ -16,6 +16,12 @@
   ;; (defvar abnormal-mode nil
   ;;   "Toggle dotcrafter basic mode."))
 
+  (scroll-bar-mode -1)
+
+  (global-visual-line-mode 1)
+
+  ;; get rid of tiny extra space around windows
+  (fringe-mode -1)
 
   (add-hook 'apropos-mode-hook
             (lambda () (setq cursor-type nil)))

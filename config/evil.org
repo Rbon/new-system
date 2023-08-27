@@ -26,4 +26,10 @@ Only the following modes are allowed to be evil.
   (require 'evil)
 #+end_src
 
+Make evil work with visual-line-mode.
+#+begin_src emacs-lisp
+  (with-eval-after-load 'evil
+    (define-key evil-normal-state-map "j" 'evil-next-visual-line)
+    (define-key evil-normal-state-map "k" 'evil-previous-visual-line))
+#+end_src
 
