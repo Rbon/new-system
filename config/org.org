@@ -1,4 +1,4 @@
-#+title: Org Mode Configuration
+  #+title:Org Mode Configuration
 #+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/org.el
 ** Keybinds
 #+name: keybind-table
@@ -28,6 +28,12 @@
 #+end_src
 
 ** Misc
+
+#+begin_src emacs-lisp
+  (with-eval-after-load 'org
+    (add-hook 'org-mode-hook (lambda () (setq org-hidden-keywords '(title)))))
+#+end_src
+
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook 'org-indent-mode)
   ;; (add-hook 'org-mode-hook 'variable-pitch-mode)
@@ -35,9 +41,12 @@
 
   (with-eval-after-load 'org
     (custom-set-faces
-     '(org-block-begin-line ((t (:inherit fixed-pitch :foreground "#93a1a1" :background "#eee8d5" :extend t))))
-     '(org-block ((t (:inherit fixed-pitch :background "#eee8d5" :extend t))))
-     '(org-block-end-line ((t (:inherit fixed-pitch :foreground "#93a1a1" :background "#eee8d5" :extend t)))))
+     '(org-block-begin-line ((t (:inherit fixed-pitch :foreground "#93a1a1" :background "#073642" :extend t))))
+     '(org-block ((t (:inherit fixed-pitch :background "#073642" :extend t))))
+     '(org-block-end-line ((t (:inherit fixed-pitch :foreground "#93a1a1" :background "#073642" :extend t)))))
+     ;; '(org-block-begin-line ((t (:inherit fixed-pitch :foreground "#93a1a1" :background "#eee8d5" :extend t))))
+     ;; '(org-block ((t (:inherit fixed-pitch :background "#eee8d5" :extend t))))
+     ;; '(org-block-end-line ((t (:inherit fixed-pitch :foreground "#93a1a1" :background "#eee8d5" :extend t)))))
     )
   ;; (custom-theme-set-faces
   ;;  'user
@@ -68,3 +77,4 @@ Make src block editors obey the =display-buffer-alist= rules.
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook (lambda () (setq org-src-window-setup 'plain)))
 #+end_src
+

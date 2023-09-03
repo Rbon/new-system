@@ -1,38 +1,44 @@
 #+title: Global Binds
 #+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/global-binds.el
 #+name: bind-table
-| Key           | Command                   | Description                    |
-|---------------+---------------------------+--------------------------------|
-| <menu>        | (keymap)                  | Home prefix                    |
-| <menu> a      | (keymap)                  | Applications                   |
-| <menu> a m    | magit                     | Open magit                     |
-| <menu> b      | (keymap)                  | Buffer                         |
-| <menu> b b    | mode-line-other-buffer    | Switch to last buffer          |
-| <menu> b k    | kill-this-buffer          | Kill this buffer               |
-| <menu> b l    | list-buffers              | List buffers                   |
-| <menu> f      | (keymap)                  | File                           |
-| <menu> F      | toggle-frame-fullscreen   | Toggle fullscreen              |
-| <menu> f c    | my/find-config-file       | Find a config file             |
-| <menu> f f    | find-file                 | Find a file                    |
-| <menu> f r    | rename-file               | Rename a file                  |
-| <menu> h      | (keymap)                  | Help                           |
-| <menu> h c    | describe-command          | Describe a command             |
-| <menu> h f    | describe-function         | Describe a function            |
-| <menu> h h    | apropos                   | Search apropos                 |
-| <menu> h k    | describe-key              | Describe a key                 |
-| <menu> h l    | list-colors-display       | List colors                    |
-| <menu> <menu> | execute-extended-command  | Run a command                  |
-| <menu> q      | (keymap)                  | Quit                           |
-| <menu> q k    | save-buffers-kill-emacs   | Save buffers and kill emacs    |
-| <menu> r      | (keymap)                  | Region                         |
-| <menu> r e    | eval-region               | Eval this region               |
-| <menu> w      | (keymap)                  | Window                         |
-| <menu> w h    | split-window-horizontally | Split this window horizontally |
-| <menu> w k    | delete-window             | Close this window              |
-| <menu> w TAB  | other-window              | Focus another window           |
-| <menu> w v    | split-window-vertically   | Split this window vertically   |
-| <menu> r c    | clipboard-kill-ring-save  | Copy this region               |
-| <menu> w m    | delete-other-windows      | Maximize this window           |
+| Key              | Command                       | Description                    |
+|------------------+-------------------------------+--------------------------------|
+| <menu>           | (keymap)                      | Home prefix                    |
+| <menu> a         | (keymap)                      | Applications                   |
+| <menu> a m       | magit                         | Open magit                     |
+| <menu> b         | (keymap)                      | Buffer                         |
+| <menu> b b       | mode-line-other-buffer        | Switch to last buffer          |
+| <menu> b k       | kill-this-buffer              | Kill this buffer               |
+| <menu> b l       | list-buffers                  | List buffers                   |
+| <menu> f         | (keymap)                      | File                           |
+| <menu> F         | toggle-frame-fullscreen       | Toggle fullscreen              |
+| <menu> f c       | my/find-config-file           | Find a config file             |
+| <menu> f f       | find-file                     | Find a file                    |
+| <menu> f r       | rename-file                   | Rename a file                  |
+| <menu> h         | (keymap)                      | Help                           |
+| <menu> h c       | describe-command              | Describe a command             |
+| <menu> h f       | describe-function             | Describe a function            |
+| <menu> h h       | apropos                       | Search apropos                 |
+| <menu> h k       | describe-key                  | Describe a key                 |
+| <menu> h l       | list-colors-display           | List colors                    |
+| <menu> <menu>    | execute-extended-command      | Run a command                  |
+| <menu> q         | (keymap)                      | Quit                           |
+| <menu> q k       | save-buffers-kill-emacs       | Save buffers and kill emacs    |
+| <menu> r         | (keymap)                      | Region                         |
+| <menu> r e       | eval-region                   | Eval this region               |
+| <menu> w         | (keymap)                      | Window                         |
+| <menu> w h       | split-window-horizontally     | Split this window horizontally |
+| <menu> w k       | delete-window                 | Close this window              |
+| <menu> w TAB     | other-window                  | Focus another window           |
+| <menu> w v       | split-window-vertically       | Split this window vertically   |
+| <menu> r c       | clipboard-kill-ring-save      | Copy this region               |
+| <menu> w m       | delete-other-windows          | Maximize this window           |
+| <menu> a f       | my/firefox                    | Open firefox                   |
+| <menu> a d       | my/discord                    | Open discord                   |
+| <menu> w f       | exwm-floating-toggle-floating | Toggle floating on this window |
+| <menu> A         | my/run-program                | Run an application             |
+| <menu> Q         | (keymap)                      | Mega Quit                      |
+| <menu> Q S       | my/suspend                    | Suspend                        |
 
 
 *** Plumbing

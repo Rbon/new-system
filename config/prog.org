@@ -1,0 +1,25 @@
+#+title: Prog Mode Configuration
+#+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/prog.el
+** Keybinds
+#+name: keybind-table
+| Key        | Command                     | Mode | Map  | Description        |
+|------------+-----------------------------+------+------+--------------------|
+| <menu> b i | indent-buffer               | prog | prog | Indent this buffer |
+| <menu> #   | comment-or-uncomment-region | prog | prog | Toggle comment     |
+| <menu> r i | indent-region               | prog | prog | Indent this region |
+
+*** Plumbing
+  #+BEGIN_SRC emacs-lisp
+    ;;; -*- lexical-binding: t; -*-
+  #+END_SRC
+
+    #+begin_src emacs-lisp :var keybind-table=keybind-table :lexical yes :results none
+      (pcase-dolist (`(,key ,command ,mode ,map ,desc) keybind-table)
+        (let ((hook (intern (concat mode "-mode-hook")))
+              (mode (intern (concat mode "-mode")))
+              (map (symbol-value (intern (concat map "-mode-map"))))
+              (command (car (read-from-string command))))
+          (add-hook hook (lambda () (define-key map (kbd key) command)))
+          (which-key-add-major-mode-key-based-replacements mode key desc)))
+    #+end_src
+

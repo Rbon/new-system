@@ -13,7 +13,7 @@ Only the following modes are allowed to be evil.
     #+end_src
 
     #+begin_src emacs-lisp :var allowed-mode-list=allowed-mode-list
-   (pcase-dolist (mode allowed-mode-list)
+   (pcase-dolist (`(,mode) allowed-mode-list)
      (add-hook
       (intern (concat mode "-mode-hook"))
       (lambda ()

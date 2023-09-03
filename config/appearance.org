@@ -2,5 +2,6 @@
 #+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/appearance.el
 #+begin_src emacs-lisp
   (straight-use-package 'solarized-theme)
-  (load-theme 'solarized-light t)
+  (load-theme 'solarized-dark t)
+  (set-frame-font "JetBrains Mono 12" nil t)
 #+end_src

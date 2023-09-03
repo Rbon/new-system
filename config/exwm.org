@@ -1,17 +1,57 @@
-#+title: EXWM Configuration
-#+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/exwm.el
+#+title:EXWM Configuration
+#PROPERTY: header-args :mkdirp yes
 ** Misc
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ~/.emacs.d/tangled/exwm.el
   (straight-use-package 'exwm)
   (require 'exwm)
+  ;;(add-to-list 'load-path "~/.emacs.d/gaps/")
+  ;; (straight-use-package 'exwm-outer-gaps)
+  ;; (straight-use-package 'xelb)
+  ;; (require 'xelb)
+  ;; (load "~/.emacs.d/exwm-outer-gaps.el")
+  ;; (require 'exwm-outer-gaps)
+  ;; (exwm-outer-gaps-mode +1)
+#+end_src
+
+Run this stuff.
+#+begin_src shell :tangle ~/.emacs.d/start-exwm.sh
+#!/bin/sh
+
+xss-lock -- slock &
+compton --vsync opengl &
+xset -dpms
+
+exec dbus-launch --exit-with-session emacs -mm --debug-init
+#+end_src
+
+System tray stuff.
+#+begin_src emacs-lisp :tangle ~/.emacs.d/tangled/exwm.el
+  (require 'exwm-systemtray)
+  (setq exwm-systemtray-height 16)
+  (exwm-systemtray-enable)
+#+end_src
+
+Function to suspend the system.
+#+begin_src emacs-lisp :tangle ~/.emacs.d/tangled/exwm.el
+  (defun my/suspend ()
+    (interactive) (start-process "" nil "systemctl" "suspend"))
+#+end_src
+
+Use =feh= to set the background.
+#+begin_src emacs-lisp :tangle ~/.emacs.d/tangled/exwm.el
+  (defun my/set-wallpaper ()
+    (interactive)
+    (start-process-shell-command "feh" nil "feh --bg-fill ~/Pictures/Wallpapers/current-wallpaper"))
+
+  (my/set-wallpaper)
 #+end_src
 
 Make sure that =<menu>= is captured and not sent to exwm windows. It took me a long time to figure out the syntax for this.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ~/.emacs.d/tangled/exwm.el
   (setq exwm-input-prefix-keys '(menu))
 #+end_src
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ~/.emacs.d/tangled/exwm.el
   (setq exwm-input-simulation-keys
         '(([?\s-c] . [C-c])
           ([?\s-v] . [C-v])
@@ -20,26 +60,46 @@ Make sure that =<menu>= is captured and not sent to exwm windows. It took me a l
         ))
 #+end_src
 
-Right now, this is basically taken verbatim from [[https://github.com/daviwil/emacs-from-scratch/blob/master/show-notes/Emacs-Desktop-01.org#setting-up-exwm][the "emacs from scratch" dotfiles]].
-#+begin_src emacs-lisp
+Proper buffer names.
+#+begin_src emacs-lisp :tangle ~/.emacs.d/tangled/exwm.el
+  (defun exwm-rename-buffer ()
+    (interactive)
+    (exwm-workspace-rename-buffer
+     (concat exwm-class-name ":"
+             (if (<= (length exwm-title) 50) exwm-title
+               (concat (substring exwm-title 0 49) "...")))))
+
+  (add-hook 'exwm-update-class-hook 'exwm-rename-buffer)
+  (add-hook 'exwm-update-title-hook 'exwm-rename-buffer)
+#+end_src
+
+No applicable method: xcb:flush, nil
+A lot of this is taken from [[https://github.com/daviwil/emacs-from-scratch/blob/master/show-notes/Emacs-Desktop-01.org#setting-up-exwm][the "emacs from scratch" dotfiles]].
+#+begin_src emacs-lisp :tangle ~/.emacs.d/tangled/exwm.el
+  ;; (define-key function-key-map [(meta shift iso-lefttab)] [(meta shift tab)])
   (setq exwm-input-global-keys
         `(
           ;; Reset to line-mode (C-c C-k switches to char-mode via exwm-input-release-keyboard)
           ([?\s-r] . exwm-reset)
 
           ;; Move between windows
-          ([s-left] . windmove-left)
-          ([s-right] . windmove-right)
-          ([s-up] . windmove-up)
-          ([s-down] . windmove-down)
-
+          ([?\s-h] . windmove-left)
+          ([?\s-l] . windmove-right)
+          ([?\s-k] . windmove-up)
+          ([?\s-j] . windmove-down)
+          ([?\s-H] . windmove-swap-states-left)
+          ([?\s-L] . windmove-swap-states-right)
+          ([?\s-K] . windmove-swap-states-up)
+          ([?\s-J] . windmove-swap-states-down)
+          ([M-tab] . previous-buffer)
+          ([M-S-iso-lefttab] . next-buffer)))
           ;; Launch applications via shell command
-          ([?\s-&] . (lambda (command)
-                       (interactive (list (read-shell-command "$ ")))
-                       (start-process-shell-command command nil command)))))
+          ;; ([?\s-&] . (lambda (command)
+                       ;; (interactive (list (read-shell-command "$ ")))
+                       ;; (start-process-shell-command command nil command)))))
 #+end_src
 
 This needs to be called /after/ all the configuration.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle ~/.emacs.d/tangled/exwm.el
   (exwm-enable)
 #+end_src
