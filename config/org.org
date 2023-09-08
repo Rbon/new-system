@@ -8,9 +8,9 @@
 | <menu> f s | save-buffer          | org     | org     | Save this buffer's file |
 | <menu> q c | org-edit-src-abort   | org-src | org-src | Cancel editing          |
 | <menu> q f | org-edit-src-exit    | org-src | org-src | Finish editing          |
-| <menu> t   | (keymap)             | org     | org     | This thing              |
-| <menu> t e | org-edit-special     | org     | org     | Edit this thing         |
-| <menu> t s | org-table-sort-lines | org     | org     | Sort this table         |
+| <menu> o   | (keymap)             | org     | org     | Org                     |
+| <menu> o e | org-edit-special     | org     | org     | Edit this thing         |
+| <menu> o s | org-table-sort-lines | org     | org     | Sort this table         |
 
 *** Plumbing
 #+BEGIN_SRC emacs-lisp

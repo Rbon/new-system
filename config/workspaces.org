@@ -1,0 +1,14 @@
+#+title:Workspace configuration
+#+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/workspaces.el
+** Misc
+In this config, the built-in =tab-bar-mode= will be used to provide the functionality of workspaces. As such, I like to use "W" as my keybind mnemonic, as opppsed to something like "t."
+#+begin_src emacs-lisp
+  (setq tab-bar-new-tab-choice "*scratch*") 
+  (setq tab-bar-show nil)
+#+end_src
+
+#+begin_src emacs-lisp
+  ;; Get the current tab name for use in some other display, such as a modeline.
+  (defun my/current-tab-name ()
+    (alist-get 'name (tab-bar--current-tab)))
+#+end_src

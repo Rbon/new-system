@@ -4,13 +4,14 @@
 #+begin_src emacs-lisp :tangle ~/.emacs.d/tangled/exwm.el
   (straight-use-package 'exwm)
   (require 'exwm)
+  ;; (setq exwm-workspace-number 5)
   ;;(add-to-list 'load-path "~/.emacs.d/gaps/")
   ;; (straight-use-package 'exwm-outer-gaps)
   ;; (straight-use-package 'xelb)
   ;; (require 'xelb)
   ;; (load "~/.emacs.d/exwm-outer-gaps.el")
   ;; (require 'exwm-outer-gaps)
-  ;; (exwm-outer-gaps-mode +1)
+ ;; (exwm-outer-gaps-mode +1)
 #+end_src
 
 Run this stuff.
@@ -18,7 +19,7 @@ Run this stuff.
 #!/bin/sh
 
 xss-lock -- slock &
-compton --vsync opengl &
+compton --vsync opengl --inactive-opacity 0.4 &
 xset -dpms
 
 exec dbus-launch --exit-with-session emacs -mm --debug-init
@@ -73,8 +74,6 @@ Proper buffer names.
   (add-hook 'exwm-update-title-hook 'exwm-rename-buffer)
 #+end_src
 
-No applicable method: xcb:flush, nil
-A lot of this is taken from [[https://github.com/daviwil/emacs-from-scratch/blob/master/show-notes/Emacs-Desktop-01.org#setting-up-exwm][the "emacs from scratch" dotfiles]].
 #+begin_src emacs-lisp :tangle ~/.emacs.d/tangled/exwm.el
   ;; (define-key function-key-map [(meta shift iso-lefttab)] [(meta shift tab)])
   (setq exwm-input-global-keys
@@ -92,7 +91,13 @@ A lot of this is taken from [[https://github.com/daviwil/emacs-from-scratch/blob
           ([?\s-K] . windmove-swap-states-up)
           ([?\s-J] . windmove-swap-states-down)
           ([M-tab] . previous-buffer)
-          ([M-S-iso-lefttab] . next-buffer)))
+          ([M-S-iso-lefttab] . next-buffer)
+          ([M-iso-lefttab] . next-buffer)
+          ([s-tab] . tab-previous)
+          ([s-iso-lefttab] . tab-next)
+          ([s-S-iso-lefttab] . tab-next)
+          ))
+          ;; ([?\s-w] . exwm-workspace-switch)))
           ;; Launch applications via shell command
           ;; ([?\s-&] . (lambda (command)
                        ;; (interactive (list (read-shell-command "$ ")))

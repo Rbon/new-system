@@ -1,4 +1,4 @@
-#+title: elfeed configuration
+#+title:elfeed configuration
 #+PROPERTY: header-args :mkdirp yes :tangle ~/.emacs.d/tangled/elfeed.el
 ** Binds
   #+name: bind-table

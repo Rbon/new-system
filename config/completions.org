@@ -1,0 +1,39 @@
+#+title:Completion Configuration
+
+Note to future self: document this.
+#+begin_src emacs-lisp :tangle ~/.emacs.d/tangled/completions.el :mkdirp yes
+  (defun basic-completion-style ()
+    (setq completion-auto-wrap t
+          completion-auto-select 'second-tab
+          completion-auto-help 'always
+          completion-show-help nil
+          completions-format 'one-column
+          completions-max-height 10))
+
+  (defun icomplete-vertical-style ()
+    (setq completion-auto-wrap t
+          completion-auto-help nil
+          completions-max-height 15
+          completion-styles '(initials flex)
+          icomplete-in-buffer t
+          max-mini-window-height 10)
+
+    (icomplete-mode 1)
+    (icomplete-vertical-mode 1))
+
+  (defun fido-style ()
+    (setq completion-auto-wrap t
+          completion-auto-help nil
+          completions-max-height 15
+          completion-styles '(flex)
+          icomplete-in-buffer t
+          max-mini-window-height 10)
+
+    (fido-mode 1)
+    (fido-vertical-mode 1))
+  (fido-style)
+  ;; icomplete-force-complete-and-exit is bound to C-j by default
+  ;; icomplete-fido-kill is bound to C-k by default
+  ;; Bind C-r to show minibuffer history entries
+  ;; (keymap-set minibuffer-mode-map "C-r" #'minibuffer-complete-history)
+#+end_src
